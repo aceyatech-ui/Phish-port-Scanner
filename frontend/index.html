@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Phish&port Checker</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💠</text></svg>" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+    <!-- ==================== AUTH MODAL ==================== -->
+    <div id="auth-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-logo">💠 Phish&port</span>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h2 id="modal-title">Sign In</h2>
+                <p id="modal-subtitle" class="modal-subtitle">Access your security dashboard</p>
+                <form id="auth-form">
+                    <div class="form-group">
+                        <label for="auth-username">Username</label>
+                        <input type="text" id="auth-username" placeholder="Enter username" required />
+                    </div>
+                    <div id="email-group" class="form-group" style="display:none;">
+                        <label for="auth-email">Email</label>
+                        <input type="email" id="auth-email" placeholder="Enter email" required />
+                    </div>
+                    <div class="form-group checkbox" id="newsletter-group" style="display:none;">
+                        <input type="checkbox" id="subscribe-newsletter" checked />
+                        <label for="subscribe-newsletter">📬 Weekly AI &amp; dev tips from Aceya</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="auth-password">Password</label>
+                        <input type="password" id="auth-password" placeholder="Enter password" required />
+                    </div>
+                    <button type="submit" id="auth-submit">Sign In</button>
+                </form>
+                <div class="modal-footer">
+                    <span id="auth-toggle-text">Don't have an account?</span>
+                    <button id="auth-toggle-btn">Create one</button>
+                </div>
+                <div id="auth-error" class="auth-error" style="display:none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== PAYMENT MODAL ==================== -->
+    <div id="payment-modal" class="modal hidden">
+        <div class="modal-content" style="max-width:480px;">
+            <div class="modal-header">
+                <span class="modal-logo">💠 Upgrade</span>
+                <button class="modal-close" id="payment-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h2>Unlimited Scans</h2>
+                <p style="color:#94A3B8;font-size:0.9rem;margin-bottom:1.5rem;">Upgrade for unlimited security assessments.</p>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin:1.2rem 0;">
+                    <button class="plan-btn selected" data-plan="monthly" style="padding:1rem;background:#111827;border:2px solid #22D3EE;border-radius:8px;cursor:pointer;color:#F8FAFC;">
+                        <div style="font-size:1.3rem;font-weight:700;color:#22D3EE;" data-price-monthly>₦1,000</div>
+                        <div style="font-size:0.75rem;color:#94A3B8;">per month</div>
+                    </button>
+                    <button class="plan-btn" data-plan="yearly" style="padding:1rem;background:#111827;border:1px solid #1E293B;border-radius:8px;cursor:pointer;color:#F8FAFC;position:relative;">
+                        <div style="font-size:1.3rem;font-weight:700;color:#22C55E;" data-price-yearly>₦12,000</div>
+                        <div style="font-size:0.75rem;color:#94A3B8;">per year</div>
+                        <div style="position:absolute;top:-6px;right:-6px;background:#22C55E;color:#0B1120;font-size:0.6rem;padding:0.1rem 0.4rem;border-radius:20px;font-weight:600;">Save 17%</div>
+                    </button>
+                </div>
+                <button id="checkout-btn" style="width:100%;padding:0.7rem;background:#22D3EE;color:#0B1120;border:none;border-radius:6px;font-weight:600;font-size:0.95rem;cursor:pointer;">Subscribe Now</button>
+                <p style="text-align:center;font-size:0.7rem;color:#94A3B8;margin-top:0.5rem;">Cancel anytime.</p>
+                <div id="payment-error" style="color:#EF4444;margin-top:0.5rem;display:none;font-size:0.8rem;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SIDEBAR ==================== -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">💠 Phish&amp;port</div>
+        <nav>
+            <a href="#" class="active" data-view="dashboard"><span>⌂</span> Dashboard</a>
+            <a href="#" data-view="new-scan"><span>⌕</span> New Scan</a>
+            <a href="#" data-view="history"><span>◷</span> History</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="#" id="upgrade-btn" style="color:#22D3EE;font-weight:600;">⚡ Upgrade</a>
+            <a href="developer.html" target="_blank"><span>✉</span> About</a>
+            <a href="#" id="logout-link"><span>⏻</span> Logout</a>
+        </div>
+    </aside>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <main class="main-content" id="main-content" style="display:none;">
+
+        <!-- Top Bar -->
+        <header>
+            <div class="greeting" id="greeting">Good afternoon.</div>
+            <div class="user-info">
+                <span class="username-display" id="username-display"></span>
+                <button id="upgrade-header-btn" class="upgrade-btn">⭐ Upgrade</button>
+            </div>
+        </header>
+
+        <!-- ========== DASHBOARD ========== -->
+<div id="view-dashboard" class="view active">
+
+    <!-- Scanner -->
+    <div class="scanner-card">
+        <div class="scanner-header">
+            <h2>🔍 Phish &amp; Port Checker</h2>
+            <p class="scanner-sub">Know what your target exposes.</p>
+            <p class="scanner-desc">Assess domains, URLs, or IPs for security risks, open ports, DNS issues, and HTTP misconfigurations.</p>
+        </div>
+
+        <div class="free-counter">
+            <span>Free scans:</span>
+            <span id="free-remaining" class="counter-num">-</span>
+            <span>/ 3 this month</span>
+        </div>
+
+        <form id="scan-form" class="scan-row">
+            <input type="text" id="target-input" placeholder="example.com or 192.168.1.1" />
+            <button type="submit" id="scan-btn">Scan</button>
+        </form>
+
+        <div id="scan-message"></div>
+
+        <div id="paywall-message" style="display:none;margin-top:1rem;padding:1rem;background:#162235;border-radius:8px;border:1px solid #30445F;">
+            <p style="color:#94A3B8;font-size:0.9rem;">🚀 You've used your free scans. <a href="#" onclick="showAuthModal();return false;" style="color:#22D3EE;">Sign up</a> or <a href="#" onclick="showPaymentModal();return false;" style="color:#22D3EE;">upgrade</a> for unlimited.</p>
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+        <div class="stat">
+            <span class="stat-label">📊 Total Scans</span>
+            <span class="stat-value" id="total-scans">-</span>
+        </div>
+        <div class="stat stat-safe">
+            <span class="stat-label">✅ Safe Targets</span>
+            <span class="stat-value" id="safe-targets">-</span>
+        </div>
+        <div class="stat stat-findings">
+            <span class="stat-label">⚠️ Findings</span>
+            <span class="stat-value" id="total-findings">-</span>
+        </div>
+    </div>
+
+    <!-- History -->
+    <div class="history-card">
+        <div class="history-header">
+            <span>📋 Recent Scans</span>
+        </div>
+        <div id="scan-list">Loading...</div>
+        <div id="history-upgrade" style="display:none;padding:0.75rem 1rem;background:#162235;border-top:1px solid #1E293B;font-size:0.85rem;color:#94A3B8;">
+            🔥 3 scans/month free. <a href="#" onclick="showPaymentModal();return false;" style="color:#22D3EE;">Upgrade →</a>
+        </div>
+    </div>
+
+</div>
+
+            <!-- Stats -->
+            <div class="stats-row">
+                <div class="stat">
+                    <span class="stat-label">📊 Total Scans</span>
+                    <span class="stat-value" id="total-scans">-</span>
+                </div>
+                <div class="stat stat-safe">
+                    <span class="stat-label">✅ Safe Targets</span>
+                    <span class="stat-value" id="safe-targets">-</span>
+                </div>
+                <div class="stat stat-findings">
+                    <span class="stat-label">⚠️ Findings</span>
+                    <span class="stat-value" id="total-findings">-</span>
+                </div>
+            </div>
+
+            <!-- History -->
+            <div class="history-card">
+                <div class="history-header">
+                    <span>📋 Recent Scans</span>
+                </div>
+                <div id="scan-list">Loading...</div>
+                <div id="history-upgrade" style="display:none;padding:0.75rem 1rem;background:#162235;border-top:1px solid #1E293B;font-size:0.85rem;color:#94A3B8;">
+                    🔥 3 scans/month free. <a href="#" onclick="showPaymentModal();return false;" style="color:#22D3EE;">Upgrade →</a>
+                </div>
+            </div>
+
+            <!-- Substack -->
+            <div class="substack-bar">
+                <span>📬</span>
+                <span style="color:#94A3B8;font-size:0.85rem;">Aceya — AI · Dev · Weekly</span>
+                <a href="https://aceyaai.substack.com" target="_blank" style="color:#22D3EE;font-size:0.8rem;font-weight:600;text-decoration:none;">Subscribe</a>
+            </div>
+        </div>
+
+        <!-- ========== RESULT VIEW ========== -->
+        <div id="view-result" class="view" style="display:none;">
+            <button class="back-btn" id="back-to-dashboard">← Back</button>
+            <div id="result-container"></div>
+
+            <div id="result-upgrade" style="display:none;margin-top:1.5rem;padding:0.75rem 1rem;background:#162235;border-radius:8px;border:1px solid #1E293B;text-align:center;font-size:0.85rem;color:#94A3B8;">
+                📄 Loved this? <a href="#" onclick="showPaymentModal();return false;" style="color:#22D3EE;">Upgrade to Pro →</a>
+            </div>
+
+            <div id="email-pdf-section" style="display:none;margin-top:1rem;padding:0.75rem 1rem;background:#162235;border-radius:8px;border:1px solid #1E293B;">
+                <p style="color:#94A3B8;font-size:0.85rem;margin-bottom:0.5rem;">📧 Get this report in your inbox</p>
+                <div style="display:flex;gap:0.5rem;max-width:350px;">
+                    <input type="email" id="pdf-email-input" placeholder="your@email.com" style="flex:1;padding:0.5rem 0.8rem;background:#0B1120;border:1px solid #1E293B;border-radius:6px;color:#F8FAFC;font-size:0.85rem;" />
+                    <button id="email-pdf-btn" style="padding:0.5rem 1.2rem;background:#22D3EE;color:#0B1120;border:none;border-radius:6px;font-weight:600;font-size:0.8rem;cursor:pointer;">Send</button>
+                </div>
+                <div id="email-pdf-message" style="margin-top:0.3rem;font-size:0.8rem;color:#94A3B8;"></div>
+            </div>
+        </div>
+
+        <!-- ========== FOOTER ========== -->
+        <footer class="footer">
+            <p style="font-size:0.75rem;color:#64748B;">Made with 💠 by <a href="developer.html" style="color:#22D3EE;text-decoration:none;font-family:'Outfit',sans-serif;font-weight:600;">Aceya</a></p>
+            <div class="footer-links">
+                <a href="https://www.instagram.com/aceyathedeveloper/" target="_blank">Instagram</a>
+                <a href="https://github.com/aceyatech-ui" target="_blank">GitHub</a>
+                <a href="https://www.linkedin.com/in/chisom-okafor-5859b93a8" target="_blank">LinkedIn</a>
+                <a href="https://aceyaai.substack.com" target="_blank">Substack</a>
+                <a href="https://wa.me/2349057533854" target="_blank">WhatsApp</a>
+            </div>
+        </footer>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
