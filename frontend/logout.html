@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Logout · Phish & Port</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💠</text></svg>" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <style>
+        .page {
+            max-width: 420px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 28px;
+        }
+        .page-header h1 {
+            font-family: "Outfit", sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+            margin: 0;
+        }
+        .page-header .user {
+            color: var(--muted);
+            font-size: 0.82rem;
+        }
+        .page-header .user a {
+            color: var(--cyan);
+            text-decoration: none;
+        }
+        .page-header .user a:hover {
+            text-decoration: underline;
+        }
+
+        .logout-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 36px 24px;
+            text-align: center;
+        }
+        .logout-box .icon {
+            font-size: 3rem;
+            margin-bottom: 12px;
+        }
+        .logout-box h2 {
+            font-family: "Outfit", sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 0 0 4px;
+        }
+        .logout-box p {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin: 0 0 20px;
+        }
+        .logout-box .btn-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .logout-box .btn {
+            display: inline-block;
+            padding: 10px 28px;
+            background: var(--cyan);
+            color: #061018;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.88rem;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .logout-box .btn:hover {
+            background: #67E8F9;
+        }
+        .logout-box .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-soft);
+        }
+        .logout-box .btn-outline:hover {
+            background: var(--surface-2);
+        }
+
+        .page-footer {
+            text-align: center;
+            padding: 20px 0 10px;
+            border-top: 1px solid var(--border);
+            margin-top: 32px;
+        }
+        .page-footer .links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+        .page-footer .links a {
+            color: var(--faint);
+            font-size: 0.7rem;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .page-footer .links a:hover {
+            color: var(--cyan);
+        }
+        .page-footer p {
+            font-size: 0.7rem;
+            color: var(--faint);
+            margin: 0 0 4px;
+        }
+        .page-footer p a {
+            color: var(--cyan);
+            text-decoration: none;
+        }
+
+        @media (max-width: 500px) {
+            .page {
+                padding: 20px 16px;
+            }
+            .logout-box {
+                padding: 28px 16px;
+            }
+            .logout-box .btn-group {
+                flex-direction: column;
+            }
+            .logout-box .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">💠 P&amp;P</div>
+        <nav>
+            <a href="newscan.html"><span>⌕</span> Scanner</a>
+            <a href="history.html"><span>◷</span> History</a>
+            <a href="pricing.html"><span>💰</span> Pricing</a>
+            <a href="feedback.html"><span>💬</span> Feedback</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="dashboard.html"><span>👤</span> Profile</a>
+            <a href="developer.html"><span>✉</span> About</a>
+            <a href="logout.html" class="active"><span>⏻</span> Logout</a>
+        </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main-content">
+
+        <div class="page">
+
+            <!-- Header -->
+            <header class="page-header">
+                <h1>👋 Logout</h1>
+                <div class="user">
+                    <span id="username-display"></span>
+                    <a href="dashboard.html">Profile</a>
+                </div>
+            </header>
+
+            <!-- Logout -->
+            <div class="logout-box">
+                <div class="icon">👋</div>
+                <h2>See ya later!</h2>
+                <p>Your session has been cleared. You can sign back in anytime.</p>
+                <div class="btn-group">
+                    <a href="newscan.html" class="btn">Sign In</a>
+                    <a href="index.html" class="btn btn-outline">← Home</a>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="page-footer">
+                <p>Made with 💠 by <a href="developer.html">Aceya</a></p>
+                <div class="links">
+                    <a href="https://www.instagram.com/aceyathedeveloper/" target="_blank">Instagram</a>
+                    <a href="https://github.com/aceyatech-ui" target="_blank">GitHub</a>
+                    <a href="https://www.linkedin.com/in/chisom-okafor-5859b93a8" target="_blank">LinkedIn</a>
+                    <a href="https://aceyaai.substack.com" target="_blank">Substack</a>
+                    <a href="https://wa.me/2349057533854" target="_blank">WhatsApp</a>
+                </div>
+            </footer>
+
+        </div>
+
+    </main>
+
+    <script>
+        // Clear session
+        localStorage.removeItem('access_token');
+        sessionStorage.clear();
+    </script>
+
+</body>
+</html>

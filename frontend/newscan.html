@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scanner · Phish & Port</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💠</text></svg>" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <style>
+        .page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 24px 20px 40px;
+        }
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 28px;
+        }
+        .page-header h1 {
+            font-family: "Outfit", sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text);
+            margin: 0;
+        }
+        .page-header .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--muted);
+            font-size: 0.82rem;
+        }
+        .page-header .user-info .username-display {
+            color: var(--text-soft);
+        }
+        .page-header .user-info .upgrade-btn {
+            padding: 4px 14px;
+            background: rgba(34, 211, 238, 0.08);
+            border: 1px solid rgba(34, 211, 238, 0.25);
+            border-radius: 6px;
+            color: var(--cyan);
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.15s ease;
+        }
+        .page-header .user-info .upgrade-btn:hover {
+            background: rgba(34, 211, 238, 0.16);
+        }
+
+        /* Scanner Card */
+        .scanner-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 28px 24px;
+            text-align: center;
+        }
+        .scanner-card h2 {
+            font-family: "Outfit", sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0 0 4px;
+        }
+        .scanner-card .sub {
+            color: var(--muted);
+            font-size: 0.92rem;
+            margin: 0 0 16px;
+        }
+        .free-counter {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+        .free-counter .counter-num {
+            color: var(--cyan);
+            font-weight: 700;
+        }
+        .scan-row {
+            display: flex;
+            gap: 10px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .scan-row input {
+            flex: 1;
+            padding: 12px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 0.92rem;
+        }
+        .scan-row input:focus {
+            outline: none;
+            border-color: var(--cyan);
+            box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.08);
+        }
+        .scan-row input::placeholder {
+            color: var(--faint);
+        }
+        .scan-row button {
+            padding: 12px 28px;
+            background: var(--cyan);
+            color: #061018;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.92rem;
+            transition: 0.15s ease;
+        }
+        .scan-row button:hover {
+            background: #67E8F9;
+        }
+        .scan-row button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        #scan-message {
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+        #scan-message a {
+            color: var(--cyan);
+            font-weight: 500;
+        }
+
+        /* Progress */
+        #scan-progress {
+            margin-top: 16px;
+            padding: 16px;
+            background: var(--surface-2);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        #scan-progress .progress-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+        #scan-progress .progress-row .percent {
+            color: var(--cyan);
+            font-weight: 700;
+        }
+        #scan-progress .bar {
+            width: 100%;
+            height: 6px;
+            background: var(--bg);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        #scan-progress .bar .fill {
+            width: 0%;
+            height: 100%;
+            background: var(--cyan);
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+        #scan-progress .steps {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+            font-size: 0.7rem;
+            color: var(--faint);
+            justify-content: center;
+        }
+        #scan-progress .steps .active {
+            color: var(--cyan);
+        }
+        #scan-progress .steps .done {
+            color: var(--green);
+        }
+
+        /* Result */
+        #result-container {
+            margin-top: 16px;
+        }
+
+        /* Paywall */
+        #paywall-message {
+            display: none;
+            margin-top: 16px;
+            padding: 16px;
+            background: var(--surface-2);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+        }
+        #paywall-message.visible {
+            display: block;
+        }
+        #paywall-message p {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin: 0 0 8px;
+        }
+        #paywall-message a {
+            color: var(--cyan);
+        }
+        #paywall-message .extra-btn {
+            padding: 6px 18px;
+            background: var(--cyan);
+            color: #061018;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+        #paywall-message .extra-btn:hover {
+            background: #67E8F9;
+        }
+
+        /* Try examples */
+        .try-examples {
+            margin-top: 16px;
+            padding: 10px 14px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+        .try-examples span {
+            color: var(--cyan);
+            cursor: pointer;
+        }
+        .try-examples span:hover {
+            text-decoration: underline;
+        }
+
+        /* Login prompt */
+        #login-prompt {
+            display: none;
+            margin-top: 16px;
+            padding: 12px 16px;
+            background: var(--surface-2);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+        #login-prompt a {
+            color: var(--cyan);
+        }
+
+        /* Footer */
+        .page-footer {
+            text-align: center;
+            padding: 20px 0 10px;
+            border-top: 1px solid var(--border);
+            margin-top: 32px;
+        }
+        .page-footer .links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+        .page-footer .links a {
+            color: var(--faint);
+            font-size: 0.7rem;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .page-footer .links a:hover {
+            color: var(--cyan);
+        }
+        .page-footer p {
+            font-size: 0.7rem;
+            color: var(--faint);
+            margin: 0 0 4px;
+        }
+        .page-footer p a {
+            color: var(--cyan);
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .scan-row {
+                flex-direction: column;
+            }
+            .page {
+                padding: 16px 14px 30px;
+            }
+            .scanner-card {
+                padding: 20px 16px;
+            }
+            .scanner-card h2 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">💠 P&amp;P</div>
+        <nav>
+            <a href="newscan.html" class="active"><span>⌕</span> Scanner</a>
+            <a href="history.html"><span>◷</span> History</a>
+            <a href="pricing.html"><span>💰</span> Pricing</a>
+            <a href="feedback.html"><span>💬</span> Feedback</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="dashboard.html"><span>👤</span> Profile</a>
+            <a href="developer.html"><span>✉</span> About</a>
+            <a href="logout.html"><span>⏻</span> Logout</a>
+        </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main-content">
+
+        <div class="page">
+
+            <!-- Header -->
+            <header class="page-header">
+                <h1>🔍 Scanner</h1>
+                <div class="user-info">
+                    <span class="username-display" id="username-display"></span>
+                    <a href="dashboard.html" class="upgrade-btn">⭐ Upgrade</a>
+                </div>
+            </header>
+
+            <!-- Scanner -->
+            <div class="scanner-card">
+
+                <h2>Check Your Target</h2>
+                <p class="sub">Enter a domain, URL, or IP to check for phishing, open ports, and security issues.</p>
+
+                <div class="free-counter">
+                    Free scans: <span id="free-remaining" class="counter-num">-</span> / 3 this month
+                </div>
+
+                <form id="scan-form" class="scan-row">
+                    <input type="text" id="target-input" placeholder="example.com or 192.168.1.1" />
+                    <button type="submit" id="scan-btn">Scan</button>
+                </form>
+
+                <div id="scan-message"></div>
+
+                <!-- Progress -->
+                <div id="scan-progress" style="display:none;">
+                    <div class="progress-row">
+                        <span id="progress-label">Initializing...</span>
+                        <span class="percent" id="progress-percent">0%</span>
+                    </div>
+                    <div class="bar">
+                        <div class="fill" id="progress-bar"></div>
+                    </div>
+                    <div class="steps">
+                        <span id="step-dns">DNS</span>
+                        <span id="step-threat">Threat</span>
+                        <span id="step-ports">Ports</span>
+                        <span id="step-http">HTTP</span>
+                        <span id="step-score">Score</span>
+                    </div>
+                </div>
+
+                <!-- Result -->
+                <div id="result-container"></div>
+
+                <!-- Paywall -->
+                <div id="paywall-message">
+                    <p>🚀 You've used your free scans. <a href="pricing.html">Upgrade</a> for unlimited.</p>
+                    <button class="extra-btn" id="extra-scan-btn">🎁 Get 1 more free scan</button>
+                </div>
+
+                <!-- Try examples -->
+                <div class="try-examples">
+                    💡 Try: <span onclick="document.getElementById('target-input').value='scanme.nmap.org';">scanme.nmap.org</span> (test target)
+                </div>
+
+                <!-- Login prompt -->
+                <div id="login-prompt">
+                    🔐 <a href="#" onclick="showAuthModal();return false;">Sign in</a> to save your history and download reports.
+                </div>
+
+            </div>
+
+            <!-- Footer -->
+            <footer class="page-footer">
+                <p>Made with 💠 by <a href="developer.html">Aceya</a></p>
+                <div class="links">
+                    <a href="https://www.instagram.com/aceyathedeveloper/" target="_blank">Instagram</a>
+                    <a href="https://github.com/aceyatech-ui" target="_blank">GitHub</a>
+                    <a href="https://www.linkedin.com/in/chisom-okafor-5859b93a8" target="_blank">LinkedIn</a>
+                    <a href="https://aceyaai.substack.com" target="_blank">Substack</a>
+                    <a href="https://wa.me/2349057533854" target="_blank">WhatsApp</a>
+                </div>
+            </footer>
+
+        </div>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

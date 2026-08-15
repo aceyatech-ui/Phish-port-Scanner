@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feedback · Phish & Port</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💠</text></svg>" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <style>
+        .page {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 24px 20px 40px;
+        }
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+        .page-header h1 {
+            font-family: "Outfit", sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+        .page-header .user {
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+        .page-header .user a {
+            color: var(--cyan);
+            text-decoration: none;
+        }
+        .page-header .user a:hover {
+            text-decoration: underline;
+        }
+
+        .feedback-form {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 24px;
+        }
+        .feedback-form .form-group {
+            margin-bottom: 14px;
+        }
+        .feedback-form label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-soft);
+            margin-bottom: 4px;
+        }
+        .feedback-form input,
+        .feedback-form select,
+        .feedback-form textarea {
+            width: 100%;
+            padding: 10px 12px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            font-size: 0.88rem;
+            font-family: inherit;
+        }
+        .feedback-form input:focus,
+        .feedback-form select:focus,
+        .feedback-form textarea:focus {
+            outline: none;
+            border-color: var(--cyan);
+            box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.08);
+        }
+        .feedback-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        .feedback-form button {
+            padding: 10px 24px;
+            background: var(--cyan);
+            color: #061018;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .feedback-form button:hover {
+            background: #67E8F9;
+        }
+        .feedback-form button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .feedback-form .result {
+            margin-top: 12px;
+            font-size: 0.85rem;
+        }
+        .feedback-form .result.success {
+            color: var(--green);
+        }
+        .feedback-form .result.error {
+            color: var(--red);
+        }
+
+        .footer-mini {
+            text-align: center;
+            padding: 20px 0 10px;
+            border-top: 1px solid var(--border);
+            margin-top: 30px;
+        }
+        .footer-mini .links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+        .footer-mini .links a {
+            color: var(--muted);
+            font-size: 0.75rem;
+            text-decoration: none;
+        }
+        .footer-mini .links a:hover {
+            color: var(--cyan);
+        }
+
+        @media (max-width: 600px) {
+            .page {
+                padding: 16px 14px 30px;
+            }
+            .feedback-form {
+                padding: 18px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page">
+
+    <!-- Header -->
+    <header class="page-header">
+        <h1>💬 Feedback</h1>
+        <div class="user">
+            <span id="username-display"></span>
+            <a href="dashboard.html">Profile</a>
+        </div>
+    </header>
+
+    <h2 style="font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:700;">Send Feedback</h2>
+    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:16px;">Found a bug? Have a suggestion? Let me know.</p>
+
+    <form class="feedback-form" id="feedbackForm">
+        <div class="form-group">
+            <label for="feedback-type">Type</label>
+            <select id="feedback-type">
+                <option value="Bug Report">🐛 Bug Report</option>
+                <option value="Feature Request">💡 Feature Request</option>
+                <option value="Suggestion">💬 Suggestion</option>
+                <option value="Security Issue">🛡️ Security Issue</option>
+                <option value="Other">📬 Other</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="feedback-name">Name</label>
+            <input type="text" id="feedback-name" placeholder="Your name" />
+        </div>
+        <div class="form-group">
+            <label for="feedback-email">Email</label>
+            <input type="email" id="feedback-email" placeholder="your@email.com" />
+        </div>
+        <div class="form-group">
+            <label for="feedback-message">Message <span style="color:var(--red);">*</span></label>
+            <textarea id="feedback-message" placeholder="Tell me what's on your mind..." required></textarea>
+        </div>
+        <button type="submit" id="feedback-btn">Send Feedback</button>
+        <div class="result" id="feedback-result"></div>
+    </form>
+
+    <!-- Footer -->
+    <footer class="footer-mini">
+        <p style="font-size:0.7rem;color:var(--faint);">Made with 💠 by <a href="developer.html" style="color:var(--cyan);text-decoration:none;">Aceya</a></p>
+        <div class="links">
+            <a href="https://www.instagram.com/aceyathedeveloper/" target="_blank">Instagram</a>
+            <a href="https://github.com/aceyatech-ui" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com/in/chisom-okafor-5859b93a8" target="_blank">LinkedIn</a>
+            <a href="https://aceyaai.substack.com" target="_blank">Substack</a>
+            <a href="https://wa.me/2349057533854" target="_blank">WhatsApp</a>
+        </div>
+    </footer>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

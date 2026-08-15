@@ -3,233 +3,599 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Phish&port Checker</title>
+    <title>Phish & Port Scanner | Website, URL & IP Security Checker</title>
+    <meta name="description" content="Check a website, URL, domain, or IP address for phishing indicators, exposed ports, DNS issues, and HTTP security risks. Get clear security findings and a security score." />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="author" content="Aceya" />
+    <meta name="theme-color" content="#061018" />
+    <link rel="canonical" href="https://phish-port-scanner.vercel.app/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Phish & Port Scanner | Website, URL & IP Security Checker" />
+    <meta property="og:description" content="Scan websites, URLs, domains and IP addresses for phishing indicators, exposed ports, DNS issues and HTTP security risks." />
+    <meta property="og:url" content="https://phish-port-scanner.vercel.app/" />
+    <meta property="og:site_name" content="Phish & Port Scanner" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Phish & Port Scanner | Website Security Checker" />
+    <meta name="twitter:description" content="Check domains, URLs and IP addresses for phishing indicators, open ports, DNS issues and HTTP security risks." />
+
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💠</text></svg>" />
     <link rel="stylesheet" href="style.css" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "@id": "https://phish-port-scanner.vercel.app/#website",
+        "name": "Phish & Port Scanner",
+        "alternateName": "Phish & Port",
+        "url": "https://phish-port-scanner.vercel.app/"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": "https://phish-port-scanner.vercel.app/#webpage",
+        "url": "https://phish-port-scanner.vercel.app/",
+        "name": "Phish & Port Scanner | Website, URL & IP Security Checker",
+        "description": "Check websites, URLs, domains and IP addresses for phishing indicators, exposed ports, DNS issues and HTTP security risks.",
+        "isPartOf": {
+            "@id": "https://phish-port-scanner.vercel.app/#website"
+        },
+        "about": {
+            "@type": "Thing",
+            "name": "Website security assessment"
+        }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": "https://phish-port-scanner.vercel.app/#organization",
+        "name": "Aceya",
+        "url": "https://phish-port-scanner.vercel.app/"
+    }
+    </script>
+
+    <style>
+        .landing {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 30px 20px 40px;
+        }
+
+        .landing > * {
+            opacity: 0;
+            animation: landingFadeUp 0.6s ease forwards;
+        }
+        .landing-nav { animation-delay: 0.05s; }
+        .landing-hero { animation-delay: 0.12s; }
+        .landing-features { animation-delay: 0.2s; }
+        .landing-how { animation-delay: 0.28s; }
+        .landing-faq { animation-delay: 0.34s; }
+        .landing-footer { animation-delay: 0.46s; }
+
+        @keyframes landingFadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* NAV */
+        .landing-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 46px;
+        }
+        .landing-nav .logo {
+            font-family: "Outfit", sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--cyan);
+            transition: transform 0.2s ease;
+        }
+        .landing-nav .logo:hover {
+            transform: translateY(-1px);
+        }
+        .landing-nav .nav-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+        .landing-nav .nav-links a {
+            color: var(--muted);
+            font-size: 0.88rem;
+            text-decoration: none;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+        .landing-nav .nav-links a:hover {
+            color: var(--text);
+            transform: translateY(-1px);
+        }
+        .landing-nav .nav-links .btn-nav {
+            padding: 8px 21px;
+            background: var(--cyan);
+            color: #061018;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+        .landing-nav .nav-links .btn-nav:hover {
+            background: #67E8F9;
+            color: #061018;
+            transform: translateY(-2px);
+        }
+
+        /* HERO — NO LINK */
+        .landing-hero {
+            text-align: center;
+            padding: 14px 0 28px;
+        }
+        .landing-hero h1 {
+            font-family: "Outfit", sans-serif;
+            font-size: clamp(2rem, 4vw, 2.65rem);
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1.12;
+            letter-spacing: -0.025em;
+            margin: 0;
+        }
+        .landing-hero h1 span {
+            color: var(--cyan);
+            position: relative;
+        }
+        .landing-hero h1 span::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -4px;
+            height: 2px;
+            background: var(--cyan);
+            opacity: 0.45;
+            transform: scaleX(0);
+            animation: scanUnderline 1s ease 0.7s forwards;
+        }
+        @keyframes scanUnderline {
+            to { transform: scaleX(1); }
+        }
+        .landing-hero .tagline {
+            font-size: 1.05rem;
+            color: var(--muted);
+            max-width: 680px;
+            margin: 13px auto 0;
+            line-height: 1.5;
+        }
+        .landing-hero .description {
+            font-size: 0.92rem;
+            color: var(--text-soft);
+            max-width: 700px;
+            margin: 15px auto 0;
+            line-height: 1.65;
+        }
+
+        /* FEATURES */
+        .landing-features {
+            display: grid;
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            gap: 10px;
+            margin: 44px 0 32px;
+        }
+        .landing-features .feature {
+            min-width: 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            padding: 15px 8px;
+            text-align: center;
+            transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+        }
+        .landing-features .feature:hover {
+            transform: translateY(-4px);
+            border-color: rgba(103, 232, 249, 0.35);
+            background: var(--surface-2);
+        }
+        .landing-features .feature .icon {
+            font-size: 1.45rem;
+            margin-bottom: 6px;
+            transition: transform 0.25s ease;
+        }
+        .landing-features .feature:hover .icon {
+            transform: scale(1.08);
+        }
+        .landing-features .feature h2 {
+            font-family: "Outfit", sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text);
+            margin: 0;
+            line-height: 1.25;
+        }
+        .landing-features .feature p {
+            font-size: 0.68rem;
+            color: var(--muted);
+            margin: 4px 0 0;
+            line-height: 1.35;
+        }
+
+        /* HOW IT WORKS */
+        .landing-how {
+            margin: 38px 0;
+        }
+        .landing-how h2 {
+            font-family: "Outfit", sans-serif;
+            font-size: 1.3rem;
+            text-align: center;
+            margin: 0 0 18px;
+        }
+        .how-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+        .how-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            padding: 17px;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+        .how-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(103, 232, 249, 0.3);
+        }
+        .how-number {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.7rem;
+            color: var(--cyan);
+            margin-bottom: 7px;
+        }
+        .how-card h3 {
+            font-family: "Outfit", sans-serif;
+            font-size: 0.9rem;
+            margin: 0 0 5px;
+        }
+        .how-card p {
+            font-size: 0.78rem;
+            line-height: 1.55;
+            color: var(--muted);
+            margin: 0;
+        }
+
+        /* FAQ */
+        .landing-faq {
+            margin: 40px 0;
+        }
+        .landing-faq h2 {
+            font-family: "Outfit", sans-serif;
+            font-size: 1.3rem;
+            text-align: center;
+            margin: 0 0 18px;
+        }
+        .faq-grid {
+            display: grid;
+            gap: 9px;
+        }
+        .faq-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            transition: border-color 0.2s ease;
+        }
+        .faq-item:hover {
+            border-color: rgba(103, 232, 249, 0.3);
+        }
+        .faq-item h3 {
+            font-family: "Outfit", sans-serif;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text);
+            margin: 0 0 5px;
+        }
+        .faq-item p {
+            font-size: 0.8rem;
+            line-height: 1.55;
+            color: var(--muted);
+            margin: 0;
+        }
+
+        /* EXTRA CTA — AT THE END OF FAQ */
+        .faq-cta {
+            text-align: center;
+            margin-top: 28px;
+            padding: 22px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+        }
+        .faq-cta p {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin: 0 0 12px;
+        }
+        .faq-cta .btn-cta {
+            padding: 10px 28px;
+            background: var(--cyan);
+            color: #061018;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .faq-cta .btn-cta:hover {
+            background: #67E8F9;
+            transform: translateY(-2px);
+        }
+
+        /* FOOTER */
+        .landing-footer {
+            text-align: center;
+            padding: 24px 0 10px;
+            border-top: 1px solid var(--border);
+            margin-top: 30px;
+        }
+        .landing-footer .links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+        .landing-footer .links a {
+            color: var(--muted);
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+        .landing-footer .links a:hover {
+            color: var(--cyan);
+            transform: translateY(-1px);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .landing > * {
+                opacity: 1;
+                animation: none;
+            }
+            .landing-hero h1 span::after {
+                animation: none;
+                transform: scaleX(1);
+            }
+            .landing-features .feature,
+            .how-card,
+            .faq-item,
+            .faq-cta .btn-cta {
+                transition: none;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .landing-features {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .how-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .landing {
+                padding: 22px 16px 30px;
+            }
+            .landing-nav {
+                flex-direction: column;
+                gap: 12px;
+                margin-bottom: 36px;
+            }
+            .landing-nav .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px 14px;
+            }
+            .landing-nav .nav-links a {
+                font-size: 0.82rem;
+            }
+            .landing-hero h1 {
+                font-size: 2rem;
+            }
+            .landing-hero .tagline {
+                font-size: 0.95rem;
+            }
+            .landing-hero .description {
+                font-size: 0.85rem;
+            }
+            .landing-features {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .landing-features .feature {
+                padding: 15px 10px;
+            }
+            .landing-features .feature h2 {
+                font-size: 0.8rem;
+            }
+            .landing-features .feature p {
+                font-size: 0.7rem;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-    <!-- ==================== AUTH MODAL ==================== -->
-    <div id="auth-modal" class="modal hidden">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="modal-logo">💠 Phish&port</span>
-                <button class="modal-close" id="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <h2 id="modal-title">Sign In</h2>
-                <p id="modal-subtitle" class="modal-subtitle">Access your security dashboard</p>
-                <form id="auth-form">
-                    <div class="form-group">
-                        <label for="auth-username">Username</label>
-                        <input type="text" id="auth-username" placeholder="Enter username" required />
-                    </div>
-                    <div id="email-group" class="form-group" style="display:none;">
-                        <label for="auth-email">Email</label>
-                        <input type="email" id="auth-email" placeholder="Enter email" required />
-                    </div>
-                    <div class="form-group checkbox" id="newsletter-group" style="display:none;">
-                        <input type="checkbox" id="subscribe-newsletter" checked />
-                        <label for="subscribe-newsletter">📬 Weekly AI &amp; dev tips from Aceya</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="auth-password">Password</label>
-                        <input type="password" id="auth-password" placeholder="Enter password" required />
-                    </div>
-                    <button type="submit" id="auth-submit">Sign In</button>
-                </form>
-                <div class="modal-footer">
-                    <span id="auth-toggle-text">Don't have an account?</span>
-                    <button id="auth-toggle-btn">Create one</button>
-                </div>
-                <div id="auth-error" class="auth-error" style="display:none;"></div>
-            </div>
+<main class="landing">
+
+    <!-- NAV -->
+    <nav class="landing-nav" aria-label="Main navigation">
+        <div class="logo">💠 Phish &amp; Port</div>
+        <div class="nav-links">
+            <a href="pricing.html">Pricing</a>
+            <a href="developer.html">About</a>
+            <a href="newscan.html" class="btn-nav">Start a Scan</a>
         </div>
-    </div>
+    </nav>
 
-    <!-- ==================== PAYMENT MODAL ==================== -->
-    <div id="payment-modal" class="modal hidden">
-        <div class="modal-content" style="max-width:480px;">
-            <div class="modal-header">
-                <span class="modal-logo">💠 Upgrade</span>
-                <button class="modal-close" id="payment-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <h2>Unlimited Scans</h2>
-                <p style="color:#94A3B8;font-size:0.9rem;margin-bottom:1.5rem;">Upgrade for unlimited security assessments.</p>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin:1.2rem 0;">
-                    <button class="plan-btn selected" data-plan="monthly" style="padding:1rem;background:#111827;border:2px solid #22D3EE;border-radius:8px;cursor:pointer;color:#F8FAFC;">
-                        <div style="font-size:1.3rem;font-weight:700;color:#22D3EE;" data-price-monthly>₦1,000</div>
-                        <div style="font-size:0.75rem;color:#94A3B8;">per month</div>
-                    </button>
-                    <button class="plan-btn" data-plan="yearly" style="padding:1rem;background:#111827;border:1px solid #1E293B;border-radius:8px;cursor:pointer;color:#F8FAFC;position:relative;">
-                        <div style="font-size:1.3rem;font-weight:700;color:#22C55E;" data-price-yearly>₦12,000</div>
-                        <div style="font-size:0.75rem;color:#94A3B8;">per year</div>
-                        <div style="position:absolute;top:-6px;right:-6px;background:#22C55E;color:#0B1120;font-size:0.6rem;padding:0.1rem 0.4rem;border-radius:20px;font-weight:600;">Save 17%</div>
-                    </button>
-                </div>
-                <button id="checkout-btn" style="width:100%;padding:0.7rem;background:#22D3EE;color:#0B1120;border:none;border-radius:6px;font-weight:600;font-size:0.95rem;cursor:pointer;">Subscribe Now</button>
-                <p style="text-align:center;font-size:0.7rem;color:#94A3B8;margin-top:0.5rem;">Cancel anytime.</p>
-                <div id="payment-error" style="color:#EF4444;margin-top:0.5rem;display:none;font-size:0.8rem;"></div>
-            </div>
+    <!-- HERO — NO LINK -->
+    <header class="landing-hero">
+        <h1>
+            Check a website, URL or IP for
+            <span>security risks</span>.
+        </h1>
+        <p class="tagline">
+            Phishing detection · Port scanning · DNS analysis · HTTP security checks
+        </p>
+        <p class="description">
+            Phish &amp; Port Scanner is a web-based security assessment tool
+            for investigating domains, URLs and IP addresses. Check for
+            phishing indicators, exposed common ports, DNS configuration
+            issues and HTTP security signals, then review the results
+            through a clear security score.
+        </p>
+    </header>
+
+    <!-- FEATURES -->
+    <section class="landing-features" aria-labelledby="features-title">
+        <h2 id="features-title" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">
+            Security Scanning Features
+        </h2>
+        <article class="feature">
+            <div class="icon" aria-hidden="true">🛡️</div>
+            <h2>Phishing Detection</h2>
+            <p>Threat intelligence</p>
+        </article>
+        <article class="feature">
+            <div class="icon" aria-hidden="true">🔌</div>
+            <h2>Port Scanner</h2>
+            <p>19 common ports</p>
+        </article>
+        <article class="feature">
+            <div class="icon" aria-hidden="true">🌐</div>
+            <h2>DNS Analysis</h2>
+            <p>Records &amp; configuration</p>
+        </article>
+        <article class="feature">
+            <div class="icon" aria-hidden="true">🔐</div>
+            <h2>HTTP Security</h2>
+            <p>Headers &amp; responses</p>
+        </article>
+        <article class="feature">
+            <div class="icon" aria-hidden="true">📊</div>
+            <h2>Security Score</h2>
+            <p>0–100 assessment</p>
+        </article>
+        <article class="feature">
+            <div class="icon" aria-hidden="true">📄</div>
+            <h2>PDF Reports</h2>
+            <p>Downloadable reports</p>
+        </article>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="landing-how" aria-labelledby="how-title">
+        <h2 id="how-title">How the Security Scanner Works</h2>
+        <div class="how-grid">
+            <article class="how-card">
+                <div class="how-number">01 / TARGET</div>
+                <h3>Enter a domain, URL or IP</h3>
+                <p>Provide the website, domain or IP address you want to investigate.</p>
+            </article>
+            <article class="how-card">
+                <div class="how-number">02 / ANALYZE</div>
+                <h3>Run the security checks</h3>
+                <p>The scanner evaluates available phishing, port, DNS and HTTP security signals.</p>
+            </article>
+            <article class="how-card">
+                <div class="how-number">03 / REVIEW</div>
+                <h3>Understand the findings</h3>
+                <p>Review the security score, findings and available recommendations in one place.</p>
+            </article>
         </div>
-    </div>
+    </section>
 
-    <!-- ==================== SIDEBAR ==================== -->
-    <aside class="sidebar" id="sidebar">
-        <div class="logo">💠 Phish&amp;port</div>
-        <nav>
-            <a href="#" class="active" data-view="dashboard"><span>⌂</span> Dashboard</a>
-            <a href="#" data-view="new-scan"><span>⌕</span> New Scan</a>
-            <a href="#" data-view="history"><span>◷</span> History</a>
-        </nav>
-        <div class="sidebar-footer">
-            <a href="#" id="upgrade-btn" style="color:#22D3EE;font-weight:600;">⚡ Upgrade</a>
-            <a href="developer.html" target="_blank"><span>✉</span> About</a>
-            <a href="#" id="logout-link"><span>⏻</span> Logout</a>
-        </div>
-    </aside>
-
-    <!-- ==================== MAIN CONTENT ==================== -->
-    <main class="main-content" id="main-content" style="display:none;">
-
-        <!-- Top Bar -->
-        <header>
-            <div class="greeting" id="greeting">Good afternoon.</div>
-            <div class="user-info">
-                <span class="username-display" id="username-display"></span>
-                <button id="upgrade-header-btn" class="upgrade-btn">⭐ Upgrade</button>
-            </div>
-        </header>
-
-        <!-- ========== DASHBOARD ========== -->
-<div id="view-dashboard" class="view active">
-
-    <!-- Scanner -->
-    <div class="scanner-card">
-        <div class="scanner-header">
-            <h2>🔍 Phish &amp; Port Checker</h2>
-            <p class="scanner-sub">Know what your target exposes.</p>
-            <p class="scanner-desc">Assess domains, URLs, or IPs for security risks, open ports, DNS issues, and HTTP misconfigurations.</p>
-        </div>
-
-        <div class="free-counter">
-            <span>Free scans:</span>
-            <span id="free-remaining" class="counter-num">-</span>
-            <span>/ 3 this month</span>
-        </div>
-
-        <form id="scan-form" class="scan-row">
-            <input type="text" id="target-input" placeholder="example.com or 192.168.1.1" />
-            <button type="submit" id="scan-btn">Scan</button>
-        </form>
-
-        <div id="scan-message"></div>
-
-        <div id="paywall-message" style="display:none;margin-top:1rem;padding:1rem;background:#162235;border-radius:8px;border:1px solid #30445F;">
-            <p style="color:#94A3B8;font-size:0.9rem;">🚀 You've used your free scans. <a href="#" onclick="showAuthModal();return false;" style="color:#22D3EE;">Sign up</a> or <a href="#" onclick="showPaymentModal();return false;" style="color:#22D3EE;">upgrade</a> for unlimited.</p>
-        </div>
-    </div>
-
-    <!-- Stats -->
-    <div class="stats-row">
-        <div class="stat">
-            <span class="stat-label">📊 Total Scans</span>
-            <span class="stat-value" id="total-scans">-</span>
-        </div>
-        <div class="stat stat-safe">
-            <span class="stat-label">✅ Safe Targets</span>
-            <span class="stat-value" id="safe-targets">-</span>
-        </div>
-        <div class="stat stat-findings">
-            <span class="stat-label">⚠️ Findings</span>
-            <span class="stat-value" id="total-findings">-</span>
-        </div>
-    </div>
-
-    <!-- History -->
-    <div class="history-card">
-        <div class="history-header">
-            <span>📋 Recent Scans</span>
-        </div>
-        <div id="scan-list">Loading...</div>
-        <div id="history-upgrade" style="display:none;padding:0.75rem 1rem;background:#162235;border-top:1px solid #1E293B;font-size:0.85rem;color:#94A3B8;">
-            🔥 3 scans/month free. <a href="#" onclick="showPaymentModal();return false;" style="color:#22D3EE;">Upgrade →</a>
-        </div>
-    </div>
-
-</div>
-
-            <!-- Stats -->
-            <div class="stats-row">
-                <div class="stat">
-                    <span class="stat-label">📊 Total Scans</span>
-                    <span class="stat-value" id="total-scans">-</span>
-                </div>
-                <div class="stat stat-safe">
-                    <span class="stat-label">✅ Safe Targets</span>
-                    <span class="stat-value" id="safe-targets">-</span>
-                </div>
-                <div class="stat stat-findings">
-                    <span class="stat-label">⚠️ Findings</span>
-                    <span class="stat-value" id="total-findings">-</span>
-                </div>
-            </div>
-
-            <!-- History -->
-            <div class="history-card">
-                <div class="history-header">
-                    <span>📋 Recent Scans</span>
-                </div>
-                <div id="scan-list">Loading...</div>
-                <div id="history-upgrade" style="display:none;padding:0.75rem 1rem;background:#162235;border-top:1px solid #1E293B;font-size:0.85rem;color:#94A3B8;">
-                    🔥 3 scans/month free. <a href="#" onclick="showPaymentModal();return false;" style="color:#22D3EE;">Upgrade →</a>
-                </div>
-            </div>
-
-            <!-- Substack -->
-            <div class="substack-bar">
-                <span>📬</span>
-                <span style="color:#94A3B8;font-size:0.85rem;">Aceya — AI · Dev · Weekly</span>
-                <a href="https://aceyaai.substack.com" target="_blank" style="color:#22D3EE;font-size:0.8rem;font-weight:600;text-decoration:none;">Subscribe</a>
-            </div>
+    <!-- FAQ + EXTRA CTA AT THE END -->
+    <section class="landing-faq" aria-labelledby="faq-title">
+        <h2 id="faq-title">Website Security Scanner FAQ</h2>
+        <div class="faq-grid">
+            <article class="faq-item">
+                <h3>What does Phish &amp; Port Scanner check?</h3>
+                <p>Phish &amp; Port Scanner can analyze a domain, URL or IP address for phishing indicators, common open ports, DNS information and HTTP security signals.</p>
+            </article>
+            <article class="faq-item">
+                <h3>Can I check if a website is safe?</h3>
+                <p>You can use the scanner to investigate a website or URL for available phishing, DNS, port and HTTP security signals. The findings and security score can help identify issues that deserve further investigation.</p>
+            </article>
+            <article class="faq-item">
+                <h3>What is a port scanner used for?</h3>
+                <p>A port scanner checks whether selected network ports are reachable on a target. This can help identify services that may be exposed and require security review.</p>
+            </article>
+            <article class="faq-item">
+                <h3>Does the scanner check DNS records?</h3>
+                <p>Yes. The scanner can inspect available DNS information associated with the target and present relevant findings as part of the security assessment.</p>
+            </article>
+            <article class="faq-item">
+                <h3>Does it check HTTP security headers?</h3>
+                <p>Yes. HTTP analysis checks available response information and security-related headers that can provide insight into a website's security configuration.</p>
+            </article>
+            <article class="faq-item">
+                <h3>What does the security score mean?</h3>
+                <p>The security score provides a simplified 0–100 representation of findings from the available checks. It is a quick way to understand scan results, not a guarantee that a website is completely safe.</p>
+            </article>
+            <article class="faq-item">
+                <h3>Is Phish &amp; Port Scanner free?</h3>
+                <p>The free tier provides up to three scans per month. Additional usage and features may be available through the pricing plans.</p>
+            </article>
+            <article class="faq-item">
+                <h3>Who can use a website security scanner?</h3>
+                <p>Website owners, developers, students, security learners and IT teams can use security scanning tools to investigate domains, identify exposed services and review basic web security signals.</p>
+            </article>
         </div>
 
-        <!-- ========== RESULT VIEW ========== -->
-        <div id="view-result" class="view" style="display:none;">
-            <button class="back-btn" id="back-to-dashboard">← Back</button>
-            <div id="result-container"></div>
-
-            <div id="result-upgrade" style="display:none;margin-top:1.5rem;padding:0.75rem 1rem;background:#162235;border-radius:8px;border:1px solid #1E293B;text-align:center;font-size:0.85rem;color:#94A3B8;">
-                📄 Loved this? <a href="#" onclick="showPaymentModal();return false;" style="color:#22D3EE;">Upgrade to Pro →</a>
-            </div>
-
-            <div id="email-pdf-section" style="display:none;margin-top:1rem;padding:0.75rem 1rem;background:#162235;border-radius:8px;border:1px solid #1E293B;">
-                <p style="color:#94A3B8;font-size:0.85rem;margin-bottom:0.5rem;">📧 Get this report in your inbox</p>
-                <div style="display:flex;gap:0.5rem;max-width:350px;">
-                    <input type="email" id="pdf-email-input" placeholder="your@email.com" style="flex:1;padding:0.5rem 0.8rem;background:#0B1120;border:1px solid #1E293B;border-radius:6px;color:#F8FAFC;font-size:0.85rem;" />
-                    <button id="email-pdf-btn" style="padding:0.5rem 1.2rem;background:#22D3EE;color:#0B1120;border:none;border-radius:6px;font-weight:600;font-size:0.8rem;cursor:pointer;">Send</button>
-                </div>
-                <div id="email-pdf-message" style="margin-top:0.3rem;font-size:0.8rem;color:#94A3B8;"></div>
-            </div>
+        <!-- EXTRA CTA AT THE END OF FAQ -->
+        <div class="faq-cta">
+            <p>Ready to check a target? Start scanning now.</p>
+            <a href="newscan.html" class="btn-cta">🔍 Start a Scan</a>
         </div>
+    </section>
 
-        <!-- ========== FOOTER ========== -->
-        <footer class="footer">
-            <p style="font-size:0.75rem;color:#64748B;">Made with 💠 by <a href="developer.html" style="color:#22D3EE;text-decoration:none;font-family:'Outfit',sans-serif;font-weight:600;">Aceya</a></p>
-            <div class="footer-links">
-                <a href="https://www.instagram.com/aceyathedeveloper/" target="_blank">Instagram</a>
-                <a href="https://github.com/aceyatech-ui" target="_blank">GitHub</a>
-                <a href="https://www.linkedin.com/in/chisom-okafor-5859b93a8" target="_blank">LinkedIn</a>
-                <a href="https://aceyaai.substack.com" target="_blank">Substack</a>
-                <a href="https://wa.me/2349057533854" target="_blank">WhatsApp</a>
-            </div>
-        </footer>
+    <!-- FOOTER -->
+    <footer class="landing-footer">
+        <p style="font-size:0.7rem;color:var(--faint);">
+            Made with 💠 by
+            <a href="developer.html" style="color:var(--cyan);text-decoration:none;">Aceya</a>
+        </p>
+        <div class="links">
+            <a href="https://www.instagram.com/aceyathedeveloper/" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://github.com/aceyatech-ui" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://www.linkedin.com/in/chisom-okafor-5859b93a8" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://aceyaai.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+            <a href="https://wa.me/2349057533854" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        </div>
+    </footer>
 
-    </main>
+</main>
 
-    <script src="app.js"></script>
 </body>
 </html>

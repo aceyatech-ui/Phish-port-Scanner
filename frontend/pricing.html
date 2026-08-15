@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pricing · Phish & Port</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💠</text></svg>" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <style>
+        .page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 24px 20px 40px;
+        }
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 28px;
+        }
+        .page-header h1 {
+            font-family: "Outfit", sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+        .page-header .user {
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+        .page-header .user a {
+            color: var(--cyan);
+            text-decoration: none;
+        }
+        .page-header .user a:hover {
+            text-decoration: underline;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 20px;
+        }
+        .pricing-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 24px;
+            text-align: center;
+        }
+        .pricing-card.featured {
+            border-color: var(--cyan);
+            background: var(--surface-2);
+        }
+        .pricing-card .plan {
+            font-family: "Outfit", sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .pricing-card .price {
+            font-family: "Outfit", sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--cyan);
+            margin: 6px 0 2px;
+        }
+        .pricing-card .price span {
+            font-size: 0.85rem;
+            color: var(--muted);
+            font-weight: 400;
+        }
+        .pricing-card .features {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0 16px;
+        }
+        .pricing-card .features li {
+            font-size: 0.82rem;
+            color: var(--text-soft);
+            padding: 3px 0;
+        }
+        .pricing-card .features li::before {
+            content: "✅ ";
+        }
+        .pricing-card .btn {
+            display: inline-block;
+            padding: 8px 24px;
+            background: var(--cyan);
+            color: #061018;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .pricing-card .btn:hover {
+            background: #67E8F9;
+        }
+        .pricing-card .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-soft);
+        }
+        .pricing-card .btn-outline:hover {
+            background: var(--surface-2);
+            border-color: var(--border-light);
+        }
+        .pricing-card .badge {
+            display: inline-block;
+            background: var(--cyan);
+            color: #061018;
+            font-size: 0.55rem;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .coming-soon {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-top: 16px;
+        }
+        .coming-soon a {
+            color: var(--cyan);
+            text-decoration: none;
+        }
+
+        .footer-mini {
+            text-align: center;
+            padding: 20px 0 10px;
+            border-top: 1px solid var(--border);
+            margin-top: 30px;
+        }
+        .footer-mini .links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+        .footer-mini .links a {
+            color: var(--muted);
+            font-size: 0.75rem;
+            text-decoration: none;
+        }
+        .footer-mini .links a:hover {
+            color: var(--cyan);
+        }
+
+        @media (max-width: 600px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            .page {
+                padding: 16px 14px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page">
+
+    <!-- Header -->
+    <header class="page-header">
+        <h1>💰 Pricing</h1>
+        <div class="user">
+            <span id="username-display"></span>
+            <a href="dashboard.html">Profile</a>
+        </div>
+    </header>
+
+    <h2 style="font-family:'Outfit',sans-serif;font-size:1.4rem;font-weight:700;text-align:center;">Simple Pricing</h2>
+    <p style="text-align:center;color:var(--muted);font-size:0.9rem;">Start free. Upgrade when you need more.</p>
+
+    <div class="pricing-grid">
+        <div class="pricing-card">
+            <div class="plan">Free</div>
+            <div class="price">₦0 <span>/ month</span></div>
+            <ul class="features">
+                <li>3 scans per month</li>
+                <li>Phishing detection</li>
+                <li>DNS &amp; HTTP analysis</li>
+                <li>Open port scanning</li>
+                <li>PDF reports</li>
+            </ul>
+            <a href="newscan.html" class="btn btn-outline">Current Plan</a>
+        </div>
+
+        <div class="pricing-card featured">
+            <div class="badge">🔥 Popular</div>
+            <div class="plan">Pro</div>
+            <div class="price">₦1,000 <span>/ month</span></div>
+            <ul class="features">
+                <li>Unlimited scans</li>
+                <li>Phishing detection</li>
+                <li>DNS &amp; HTTP analysis</li>
+                <li>Open port scanning</li>
+                <li>PDF reports</li>
+                <li>Priority support</li>
+            </ul>
+            <a href="#" id="upgrade-btn" class="btn">Upgrade Now</a>
+        </div>
+    </div>
+
+    <div class="coming-soon">
+        💳 Payment via <a href="#">Grey</a> coming soon.
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-mini">
+        <p style="font-size:0.7rem;color:var(--faint);">Made with 💠 by <a href="developer.html" style="color:var(--cyan);text-decoration:none;">Aceya</a></p>
+        <div class="links">
+            <a href="https://www.instagram.com/aceyathedeveloper/" target="_blank">Instagram</a>
+            <a href="https://github.com/aceyatech-ui" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com/in/chisom-okafor-5859b93a8" target="_blank">LinkedIn</a>
+            <a href="https://aceyaai.substack.com" target="_blank">Substack</a>
+            <a href="https://wa.me/2349057533854" target="_blank">WhatsApp</a>
+        </div>
+    </footer>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

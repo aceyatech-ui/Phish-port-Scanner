@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile · Phish & Port</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💠</text></svg>" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <style>
+        .page {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 24px 20px 40px;
+        }
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 28px;
+        }
+        .page-header h1 {
+            font-family: "Outfit", sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+        .page-header .user {
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+        .page-header .user a {
+            color: var(--cyan);
+            text-decoration: none;
+        }
+        .page-header .user a:hover {
+            text-decoration: underline;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(34, 211, 238, 0.1);
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.4rem;
+            margin: 0 auto 12px;
+        }
+        .profile-name {
+            font-family: "Outfit", sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-align: center;
+        }
+        .profile-status {
+            display: inline-block;
+            padding: 3px 14px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-align: center;
+            margin: 4px auto 0;
+        }
+        .profile-status.free {
+            background: rgba(251, 191, 36, 0.1);
+            color: var(--amber);
+        }
+        .profile-status.pro {
+            background: rgba(52, 211, 153, 0.1);
+            color: var(--green);
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .profile-stats .stat {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+        .profile-stats .stat .num {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        .profile-stats .stat .label {
+            font-size: 0.6rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .profile-upgrade {
+            margin-top: 20px;
+            padding: 16px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-align: center;
+        }
+        .profile-upgrade h3 {
+            font-family: "Outfit", sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .profile-upgrade p {
+            color: var(--muted);
+            font-size: 0.82rem;
+            margin: 4px 0 12px;
+        }
+        .profile-upgrade .btn {
+            padding: 8px 24px;
+            background: var(--cyan);
+            color: #061018;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .profile-upgrade .btn:hover {
+            background: #67E8F9;
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 16px;
+        }
+        .profile-actions a {
+            color: var(--muted);
+            font-size: 0.8rem;
+            text-decoration: none;
+        }
+        .profile-actions a:hover {
+            color: var(--cyan);
+        }
+
+        .footer-mini {
+            text-align: center;
+            padding: 20px 0 10px;
+            border-top: 1px solid var(--border);
+            margin-top: 30px;
+        }
+        .footer-mini .links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+        .footer-mini .links a {
+            color: var(--muted);
+            font-size: 0.75rem;
+            text-decoration: none;
+        }
+        .footer-mini .links a:hover {
+            color: var(--cyan);
+        }
+
+        @media (max-width: 600px) {
+            .page {
+                padding: 16px 14px 30px;
+            }
+            .profile-stats {
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page">
+
+    <!-- Header -->
+    <header class="page-header">
+        <h1>👤 Profile</h1>
+        <div class="user">
+            <span id="username-display"></span>
+            <a href="logout.html">Logout</a>
+        </div>
+    </header>
+
+    <div class="profile-avatar">💠</div>
+    <div class="profile-name" id="profile-name">Guest</div>
+    <div class="profile-status free" id="profile-status" style="display:block;width:fit-content;">Free</div>
+
+    <div class="profile-stats">
+        <div class="stat">
+            <div class="num" id="stat-scans">0</div>
+            <div class="label">Scans</div>
+        </div>
+        <div class="stat">
+            <div class="num" id="stat-free">3</div>
+            <div class="label">Free Left</div>
+        </div>
+        <div class="stat">
+            <div class="num" id="stat-findings">0</div>
+            <div class="label">Findings</div>
+        </div>
+    </div>
+
+    <div class="profile-upgrade" id="upgrade-section">
+        <h3>⚡ Upgrade to Pro</h3>
+        <p>Get unlimited scans, priority support, and full report access.</p>
+        <a href="pricing.html" class="btn">View Plans →</a>
+    </div>
+
+    <div class="profile-actions">
+        <a href="history.html">📋 History</a>
+        <a href="feedback.html">💬 Feedback</a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-mini">
+        <p style="font-size:0.7rem;color:var(--faint);">Made with 💠 by <a href="developer.html" style="color:var(--cyan);text-decoration:none;">Aceya</a></p>
+        <div class="links">
+            <a href="https://www.instagram.com/aceyathedeveloper/" target="_blank">Instagram</a>
+            <a href="https://github.com/aceyatech-ui" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com/in/chisom-okafor-5859b93a8" target="_blank">LinkedIn</a>
+            <a href="https://aceyaai.substack.com" target="_blank">Substack</a>
+            <a href="https://wa.me/2349057533854" target="_blank">WhatsApp</a>
+        </div>
+    </footer>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

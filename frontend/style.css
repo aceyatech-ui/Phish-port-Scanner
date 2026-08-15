@@ -1,5 +1,5 @@
 /* =========================================================
-   Phish&port Checker — Balanced Spacing
+   Phish&port Checker — Complete Styles
    ========================================================= */
 
 :root {
@@ -161,8 +161,7 @@ header {
    VIEWS
    ========================================================= */
 
-.view { display: none; }
-.view.active { display: block; }
+.view { display: block; }
 
 /* =========================================================
    SCANNER CARD
@@ -282,6 +281,9 @@ header {
     overflow: hidden;
 }
 .history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 12px 18px;
     border-bottom: 1px solid var(--border);
     font-size: 0.88rem;
@@ -581,29 +583,46 @@ header {
 }
 
 /* =========================================================
-   FOOTER
+   FOOTER — Compact & Proper
    ========================================================= */
 
 .footer {
-    margin-top: 36px;
-    padding: 18px 0;
+    margin-top: 40px;
+    padding: 16px 0 12px;
     border-top: 1px solid var(--border);
     text-align: center;
+}
+.footer p {
+    font-size: 0.7rem;
+    color: var(--faint);
+    margin-bottom: 6px;
+}
+.footer p a {
+    color: var(--cyan);
+    text-decoration: none;
+    font-family: "Outfit", sans-serif;
+    font-weight: 600;
+}
+.footer p a:hover {
+    text-decoration: underline;
 }
 .footer-links {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 14px;
-    margin-top: 6px;
+    gap: 10px;
+    margin-top: 4px;
 }
 .footer-links a {
     color: var(--faint);
-    font-size: 0.72rem;
+    font-size: 0.65rem;
     text-decoration: none;
     transition: 0.15s ease;
+    padding: 2px 6px;
 }
-.footer-links a:hover { color: var(--cyan); }
+.footer-links a:hover {
+    color: var(--cyan);
+}
 
 /* =========================================================
    RESULT UPGRADE / EMAIL
@@ -656,4 +675,6 @@ header {
     .stats-row { grid-template-columns: 1fr; }
     .stat { padding: 12px 14px; }
     .stat-value { font-size: 1.2rem; }
+    .footer-links { gap: 6px; }
+    .footer-links a { font-size: 0.6rem; }
 }
