@@ -7,7 +7,7 @@ from datetime import datetime
 import time
 
 from app.config import Config
-from app.utils.security import validate_target, validate_redirect_url, is_private_ip
+from app.utils.security import validate_target, is_private_ip
 
 VT_API_KEY = os.environ.get('VT_API_KEY', '')
 
