@@ -62,12 +62,12 @@ def create_app(config_class=Config):
     # ===== Register Blueprints =====
     from app.routes.auth import auth_bp
     from app.routes.scans import scans_bp
-    from app.routes.payment import payment_bp
+    # from app.routes.payment import payment_bp
     from app.routes.contact import contact_bp  
 
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
     app.register_blueprint(scans_bp, url_prefix='/api/scans')
-    app.register_blueprint(payment_bp, url_prefix='/api/payment')
+    # app.register_blueprint(payment_bp, url_prefix='/api/payment')
     app.register_blueprint(contact_bp, url_prefix='/api/contact')  
 
     return app   
